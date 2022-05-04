@@ -1,0 +1,30 @@
+name: Promote to prod
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build the Docker image of frontend
+      run: docker build -t caisser/fibonacci-test -f ./client/Dockerfile.dev .
+      
+    - name: Run unit test
+      run: docker run -e CI=true caisser/fibonacci-test npm run test
+    
+    - name: Build the Docker prod image of other services
+    - run: docker build -t caisser/fibonacci-client ./client
+    - run: docker build -t caisser/fibonacci-nginx ./nginx
+    - run: docker build -t caisser/fibonacci-server ./server
+    - run: docker build -t caisser/fibonacci-worker ./worker
+    
+    - name: push images to Docker hub
+    - run: docker login -u ${{ secrets.DOCKER_ID }} -p ${{ secrets.DOCKER_PASSWORD }}
+    - run: docker push caisser/fibonacci-client
+    - run: docker push caisser/fibonacci-nginx
+    - run: docker push caisser/fibonacci-server
+    - run: docker push caisser/fibonacci-worker
