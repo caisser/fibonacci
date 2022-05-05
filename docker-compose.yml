@@ -4,7 +4,7 @@ services:
     image: "caisser/fibonacci-client"
     mem_limit: 128m
     hostname: client
-  api:
+  server:
     image: "caisser/fibonacci-server"
     mem_limit: 128m
     hostname: api
