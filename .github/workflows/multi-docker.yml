@@ -44,9 +44,9 @@ jobs:
           # AWS Region
           region: us-east-1
           # Beanstalk application name
-          application_name: multi-container
+          application_name: multi-docker
           # Beanstalk environment name. If empty a version will be created but not deployed anywhere.
-          environment_name: Multicontainer-env
+          environment_name: Multidocker-env
           # Version label for new Beanstalk version
           version_label: ${{ github.sha }}
           # Zip file with the version to deploy. If skipped the action will deploy existing version.
