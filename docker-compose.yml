@@ -7,7 +7,7 @@ services:
   server:
     image: "caisser/fibonacci-server"
     mem_limit: 128m
-    hostname: server
+    hostname: api
     environment:
       - REDIS_HOST=$REDIS_HOST
       - REDIS_PORT=$REDIS_PORT
